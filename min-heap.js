@@ -1,21 +1,26 @@
 class MinHeap {
     constructor() {
         this.heap = [];
+        this.size = 0;
     }
 
     addWithPriority(element, priority) {
         this.heap.push({ item: element, priority });
+        this.size++;
         this.heapifyUp();
     }
 
     decreasePriority(element, newPriority) {
+        if (this.isEmpty()) {
+            return null;
+        }
         const index = this.heap.findIndex(x => x.item === element);
         if (index === -1) {
-            throw Error(`No such element ${element}`);
+            return null;
         }
 
         if (newPriority > this.heap[index].priority) {
-            throw new Error(`New priority ${newPriority} is greater than current priority ${this.heap[index].priority}`);
+            return null;
         }
 
         this.heap[index].priority = newPriority
@@ -24,19 +29,28 @@ class MinHeap {
 
     extractMin() {
         if (this.isEmpty()) {
-            throw new Error("Cannot extract from an empty heap");
+            return null;
         }
         const min = this.heap[0];
-        this.heap[0] = this.heap[this.heap.length - 1];
+        this.heap[0] = this.heap[this.size - 1];
         this.heap.pop();
         this.heapifyDown();
+
+        this.size--;
 
         return min.item;
     }
 
+    clear() {
+        this.heap = [];
+        this.size = 0;
+    }
+
+    peek = () => this.isEmpty() ? null : this.heap[0].item;
+    
     has = (element) => this.heap.some(x => x.item === element)
 
-    isEmpty = () => this.heap.length === 0;
+    isEmpty = () => this.size === 0;
 
     getParent = (i) => (i - 1) >> 1;
 
@@ -45,7 +59,7 @@ class MinHeap {
     getRightChild = (i) => (i << 1) + 2;
 
     heapifyUp(index) {
-        let currentIndex = index || this.heap.length - 1;
+        let currentIndex = index || this.size - 1;
         while (currentIndex > 0) {
             const parentIndex = this.getParent(currentIndex);
             if (this.heap[currentIndex].priority < this.heap[parentIndex].priority) {
@@ -59,7 +73,7 @@ class MinHeap {
 
     heapifyDown(index) {
         let currentIndex = index || 0;
-        while (currentIndex < this.heap.length) {
+        while (currentIndex < this.size) {
             const leftChildIndex = this.getLeftChild(currentIndex);
             const rightChildIndex = this.getRightChild(currentIndex);
             let minIndex = currentIndex;
