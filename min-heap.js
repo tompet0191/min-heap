@@ -38,11 +38,11 @@ class MinHeap {
 
     isEmpty = () => this.heap.length === 0;
 
-    getParent = (i) => Math.floor((i - 1) / 2);
+    getParent = (i) => (i - 1) >> 1;
 
-    getLeftChild = (i) => 2 * i + 1;
+    getLeftChild = (i) => (i << 1) + 1;
 
-    getRightChild = (i) => 2 * i + 2;
+    getRightChild = (i) => (i << 1) + 2;
 
     heapifyUp(index) {
         let currentIndex = index || this.heap.length - 1;
