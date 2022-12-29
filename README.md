@@ -1,5 +1,5 @@
 # min-heap
-A lightweight JavaScript min heap implemented as an array
+A lightweight JavaScript min heap implementation
 
 ## Methods
 
