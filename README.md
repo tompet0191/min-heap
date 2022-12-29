@@ -22,4 +22,4 @@ Returns `true` if the given element is in the heap, and `false` otherwise.
 Returns `true` if the heap is empty, and `false` otherwise.
 
 #### `clear()`
-Clears the heap.
+Empties the heap.
