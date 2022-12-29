@@ -12,8 +12,14 @@ Decreases the priority of a given element in the heap. If the new priority is gr
 #### `extractMin()`
 Removes and returns the minimum element from the heap. If the heap is empty, an error is thrown.
 
+#### `peek()`
+Returns the minimum element from the heap without removing it.
+
 #### `has(element)`
 Returns `true` if the given element is in the heap, and `false` otherwise.
 
 #### `isEmpty()`
 Returns `true` if the heap is empty, and `false` otherwise.
+
+#### `clear()`
+Clears the heap.
