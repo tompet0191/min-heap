@@ -1,5 +1,5 @@
 # min-heap
-A lightweight min heap implemented as a binary tree, in JavaScript.
+A lightweight min heap implemented as a list, in JavaScript.
 
 ## Methods
 
