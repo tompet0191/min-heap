@@ -9,7 +9,7 @@ class MinHeap {
         this.heap.push({ item: element, priority });
         this.size++;
         this.map.set(element, this.size-1);
-        this.heapifyUp();
+        this.#heapifyUp();
     }
 
     decreasePriority(element, newPriority) {
@@ -28,7 +28,7 @@ class MinHeap {
         }
 
         this.heap[index].priority = newPriority
-        this.heapifyUp(index);
+        this.#heapifyUp(index);
     }
 
     extractMin() {
@@ -38,7 +38,7 @@ class MinHeap {
         const min = this.heap[0];
         this.heap[0] = this.heap[this.size - 1];
         this.heap.pop();
-        this.heapifyDown();
+        this.#heapifyDown();
 
         this.size--;
         this.map.delete(min.item);
@@ -58,16 +58,16 @@ class MinHeap {
 
     isEmpty = () => this.size === 0;
 
-    getParent = (i) => (i - 1) >> 1;
+    #getParent = (i) => (i - 1) >> 1;
 
-    getLeftChild = (i) => (i << 1) + 1;
+    #getLeftChild = (i) => (i << 1) + 1;
 
-    getRightChild = (i) => (i << 1) + 2;
+    #getRightChild = (i) => (i << 1) + 2;
 
-    heapifyUp(index) {
+    #heapifyUp(index) {
         let currentIndex = index || this.size - 1;
         while (currentIndex > 0) {
-            const parentIndex = this.getParent(currentIndex);
+            const parentIndex = this.#getParent(currentIndex);
             if (this.heap[currentIndex].priority < this.heap[parentIndex].priority) {
                 this.swap(currentIndex, parentIndex);
                 this.map.set(this.heap[currentIndex].item, currentIndex);
@@ -79,11 +79,11 @@ class MinHeap {
         }
     }
 
-    heapifyDown(index) {
+    #heapifyDown(index) {
         let currentIndex = index || 0;
         while (currentIndex < this.size) {
-            const leftChildIndex = this.getLeftChild(currentIndex);
-            const rightChildIndex = this.getRightChild(currentIndex);
+            const leftChildIndex = this.#getLeftChild(currentIndex);
+            const rightChildIndex = this.#getRightChild(currentIndex);
             let minIndex = currentIndex;
             if (leftChildIndex < this.heap.length && this.heap[leftChildIndex].priority < this.heap[minIndex].priority) {
                 minIndex = leftChildIndex;
