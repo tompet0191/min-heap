@@ -8,45 +8,55 @@ describe('MinHeap', () => {
     });
 
     describe('addWithPriority()', () => {
-        it('adds an element to the heap', () => {
+        it('should add an element to the heap', () => {
             heap.addWithPriority('A', 1);
             expect(heap.heap).toEqual([{ item: 'A', priority: 1 }]);
+            expect(heap.size).toBe(1);
+            expect(heap.map.size).toBe(1);
         });
     });
 
     describe('decreasePriority()', () => {
-        it('updates the priority of an element and restores the heap', () => {
+        it('should update the priority of an element and restore the heap', () => {
             heap.addWithPriority('A', 2);
             heap.addWithPriority('B', 1);
+            expect(heap.map.get('A')).toBe(1);
             heap.decreasePriority('A', 0);
             expect(heap.heap).toEqual([{ item: 'A', priority: 0 }, { item: 'B', priority: 1 }]);
+            expect(heap.map.get('A')).toBe(0);
         });
 
-        it('returns null if the new priority is greater than the current priority', () => {
+        it('should return null if the new priority is greater than the current priority', () => {
             heap.addWithPriority('A', 2);
             expect(heap.decreasePriority('A', 3)).toBe(null);
         });
 
-        it('returns null if heap is empty', () => {
+        it('should return null if heap is empty', () => {
             expect(heap.decreasePriority('A', 3)).toBe(null);
+        });
+
+        it('should return null if trying to decrease item that does not exist in the heap', () => {
+            heap.addWithPriority('A', 2);
+            expect(heap.decreasePriority('X', 3)).toBe(null);
         });
 
     });
 
     describe('extractMin()', () => {
-        it('removes and returns the minimum element from the heap', () => {
+        it('should remove and return the minimum element from the heap', () => {
             heap.addWithPriority('A', 1);
             heap.addWithPriority('B', 2);
 
             expect(heap.extractMin()).toBe('A');
             expect(heap.heap).toEqual([{ item: 'B', priority: 2 }]);
+            expect(heap.map.get('A')).toBe(undefined);
         });
 
-        it('extractMin returns null if the heap is empty', () => {
+        it('should return null if the heap is empty', () => {
             expect(heap.extractMin()).toBe(null);
         });
 
-        it("always returns the minimum value from large sets", () => {
+        it("should always return the minimum value from large sets", () => {
             let nextPriority = 0;
 
             for (let i = 0; i < 10000; i++) {
@@ -59,7 +69,7 @@ describe('MinHeap', () => {
             }
         });
 
-        it("always returns the minimum value from jumbled large sets", () => {
+        it("should always return the minimum value from jumbled large sets", () => {
             let nextPriority = 0;
 
             let expected = []
@@ -79,7 +89,7 @@ describe('MinHeap', () => {
     });
 
     describe('has()', () => {
-        it('returns true if the element is in the heap, false otherwise', () => {
+        it('should return true if the element is in the heap, false otherwise', () => {
             heap.addWithPriority('A', 1);
             expect(heap.has('A')).toBe(true);
             expect(heap.has('B')).toBe(false);
@@ -87,13 +97,13 @@ describe('MinHeap', () => {
     });
 
     describe('isEmpty()', () => {
-        it('returns true if the heap is empty, false otherwise', () => {
+        it('should return true if the heap is empty, false otherwise', () => {
             expect(heap.isEmpty()).toBe(true);
             heap.addWithPriority('A', 1);
             expect(heap.isEmpty()).toBe(false);
         });
 
-        it('extractMin followed by IsEmpty returns true if heap is empty, false otherwise', () => {
+        it('should return true if heap is empty, false otherwise and called after extractMin on the last element', () => {
             expect(heap.isEmpty()).toBe(true);
             heap.addWithPriority('A', 1);
             heap.extractMin();
@@ -103,28 +113,29 @@ describe('MinHeap', () => {
     });
 
     describe('peek()', () => {
-        it('returns the min item without removing it', () => {
-            heap.addWithPriority(1, 1);
-            heap.addWithPriority(2, 2);
+        it('should return the min item without removing it', () => {
+            heap.addWithPriority(1, 2);
+            heap.addWithPriority(2, 1);
             heap.addWithPriority(3, 3);
-            expect(heap.peek()).toBe(1);
-            heap.extractMin();
             expect(heap.peek()).toBe(2);
+            heap.extractMin();
+            expect(heap.peek()).toBe(1);
         });
 
-        it('returns null if the heap is empty', () => {
+        it('should return null if the heap is empty', () => {
             expect(heap.peek()).toBe(null);
         });
     });
 
     describe('clear()', () => {
-        it('empties the heap', () => {
+        it('should empty the heap', () => {
             heap.addWithPriority(1, 1);
             heap.addWithPriority(2, 2);
             heap.addWithPriority(3, 3);
             heap.clear();
             expect(heap.isEmpty()).toBe(true);
             expect(heap.size).toBe(0);
+            expect(heap.map.size).toBe(0);
         });
     });
 });
