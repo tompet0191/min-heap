@@ -12,7 +12,7 @@ Decreases the priority of a given element in the heap. If the new priority is gr
 Time complexity: O(log n)
 
 #### `extractMin()`
-Removes and returns the minimum element from the heap. If the heap is empty, an error is thrown.  
+Removes and returns the minimum element from the heap. If the heap is empty, returns null.
 Time complexity: O(log n)
 
 #### `peek()`
