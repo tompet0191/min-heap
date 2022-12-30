@@ -1,7 +1,7 @@
 # min-heap
 A lightweight JavaScript min heap implementation
 
-## Methods
+## Functions
 
 #### `addWithPriority(element, priority)`
 Adds a new element to the heap with a given priority.  
