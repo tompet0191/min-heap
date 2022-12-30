@@ -31,6 +31,10 @@ Time complexity: O(1)
 Returns `true` if the given element is in the heap, and `false` otherwise.  
 Time complexity: O(1)
 
+#### `getPriority(element) `
+Returns the priority of an element if it exists in the heap, otherwise `null`.  
+Time complexity: O(1)
+
 #### `isEmpty()`
 Returns `true` if the heap is empty, and `false` otherwise.  
 Time complexity: O(1)
@@ -43,6 +47,7 @@ Time complexity: O(1)
 Returns an array containing the elements of the heap in the same order as they appear in the heap.  
 Time complexity: O(n)
 
-#### `buildHeap()` 
+#### `buildHeap(array, getPriority = null)` 
 Constructs a new heap from the given array by adding each element to the heap with its value as the priority.  
+Alternatively, a priority function may be sent in instead.
 Time complexity: O(n log n)
