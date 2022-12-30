@@ -1,6 +1,14 @@
 # min-heap
 A lightweight JavaScript min heap implementation
 
+## Constructor
+This creates a new instance of the MinHeap class with an empty heap:  
+`const heap = new MinHeap();`
+
+
+Alternatively, you can pass in an array as an argument to the constructor to build a heap from the array:   
+`const heap = new MinHeap([5, 3, 8, 1]);`
+
 ## Functions
 
 #### `addWithPriority(element, priority)`
@@ -30,3 +38,11 @@ Time complexity: O(1)
 #### `clear()`
 Empties the heap.  
 Time complexity: O(1)
+
+#### `toArray()`
+Returns an array containing the elements of the heap in the same order as they appear in the heap.  
+Time complexity: O(n)
+
+#### `buildHeap()` 
+Constructs a new heap from the given array by adding each element to the heap with its value as the priority.  
+Time complexity: O(n log n)
