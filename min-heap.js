@@ -5,7 +5,7 @@ class MinHeap {
         this.map = new Map();
 
         if (array) {
-            this.buildHeap(array);
+            this.buildHeap(array, null);
         }
     }
 
@@ -66,6 +66,12 @@ class MinHeap {
 
     toArray = () => this.heap.map(({ item }) => item);
 
+    getPriority = (element) => {
+        const index = this.map.get(element) 
+        
+        return index !== undefined ? this.heap[index].priority : null;
+    }
+
     isMinHeap() {
         for (let i = 1; i < this.size; i++) {
             const parentIndex = this.#getParent(i);
@@ -76,10 +82,11 @@ class MinHeap {
         return true;
     }
 
-    buildHeap(array) {
+    buildHeap(array, getPriority = null) {
         this.clear();
         for (let element of array) {
-            this.addWithPriority(element, element);
+            const priority = getPriority ? getPriority(element) : element;
+            this.addWithPriority(element, priority);
         }
     }
 

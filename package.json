@@ -1,0 +1,27 @@
+{
+  "name": "min-heap",
+  "version": "1.0.0",
+  "description": "a min-heap implementation",
+  "main": "min-heap.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:verbose": "jest --verbose",
+    "test:coverage": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tompet0191/min-heap.git"
+  },
+  "author": "tommypet@kth.se",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tompet0191/min-heap/issues"
+  },
+  "homepage": "https://github.com/tompet0191/min-heap#readme",
+  "devDependencies": {
+    "jest": "^29.3.1"
+  }
+}
