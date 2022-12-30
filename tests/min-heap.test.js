@@ -26,9 +26,9 @@ describe('MinHeap', () => {
             expect(heap.map.get('A')).toBe(0);
         });
 
-        it('should return null if the new priority is greater than the current priority', () => {
-            heap.addWithPriority('A', 2);
-            expect(heap.decreasePriority('A', 3)).toBe(null);
+        it('should throw an error if the new priority is greater than the current priority', () => {
+            heap.addWithPriority('a', 1);
+            expect(() => heap.decreasePriority('a', 2)).toThrowError('New priority 2 is greater than the current priority 1');
         });
 
         it('should return null if heap is empty', () => {

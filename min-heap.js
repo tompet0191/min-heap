@@ -24,7 +24,7 @@ class MinHeap {
         }
 
         if (newPriority > this.heap[index].priority) {
-            return null;
+            throw Error(`New priority ${newPriority} is greater than the current priority ${this.heap[index].priority}`)
         }
 
         this.heap[index].priority = newPriority
