@@ -2,11 +2,13 @@ class MinHeap {
     constructor() {
         this.heap = [];
         this.size = 0;
+        this.map = new Map();
     }
 
     addWithPriority(element, priority) {
         this.heap.push({ item: element, priority });
         this.size++;
+        this.map.set(element, this.size-1);
         this.heapifyUp();
     }
 
@@ -14,8 +16,10 @@ class MinHeap {
         if (this.isEmpty()) {
             return null;
         }
-        const index = this.heap.findIndex(x => x.item === element);
-        if (index === -1) {
+        
+        let index = this.map.get(element);
+
+        if (index === undefined) {
             return null;
         }
 
@@ -37,6 +41,7 @@ class MinHeap {
         this.heapifyDown();
 
         this.size--;
+        this.map.delete(min.item);
 
         return min.item;
     }
@@ -44,11 +49,12 @@ class MinHeap {
     clear() {
         this.heap = [];
         this.size = 0;
+        this.map.clear();
     }
 
     peek = () => this.isEmpty() ? null : this.heap[0].item;
     
-    has = (element) => this.heap.some(x => x.item === element)
+    has = (element) => this.map.has(element);
 
     isEmpty = () => this.size === 0;
 
@@ -64,6 +70,8 @@ class MinHeap {
             const parentIndex = this.getParent(currentIndex);
             if (this.heap[currentIndex].priority < this.heap[parentIndex].priority) {
                 this.swap(currentIndex, parentIndex);
+                this.map.set(this.heap[currentIndex].item, currentIndex);
+                this.map.set(this.heap[parentIndex].item, parentIndex);
                 currentIndex = parentIndex;
             } else {
                 break;
@@ -87,6 +95,8 @@ class MinHeap {
     
             if (minIndex !== currentIndex) {
                 this.swap(currentIndex, minIndex);
+                this.map.set(this.heap[currentIndex].item, currentIndex);
+                this.map.set(this.heap[minIndex].item, minIndex);
                 currentIndex = minIndex;
             } else {
                 break;
