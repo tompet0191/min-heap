@@ -105,7 +105,9 @@ class MinHeap {
     }
 
     swap(i, j) {
-        [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
+        const temp = this.heap[i];
+        this.heap[i] = this.heap[j];
+        this.heap[j] = temp;
     }
 }
 
