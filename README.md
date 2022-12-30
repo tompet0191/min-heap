@@ -30,3 +30,11 @@ Time complexity: O(1)
 #### `clear()`
 Empties the heap.  
 Time complexity: O(1)
+
+#### `toArray()`
+Returns an array containing the elements of the heap in the same order as they appear in the heap.  
+Time complexity: O(n)
+
+#### `buildHeap()` 
+Constructs a new heap from the given array by adding each element to the heap with its value as the priority.  
+Time complexity: O(n log n)
