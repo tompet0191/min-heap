@@ -2,7 +2,7 @@
 A lightweight JavaScript min heap implementation
 
 ## Constructor
-This creates a new instance of the MinHeap class with an empty heap:
+This creates a new instance of the MinHeap class with an empty heap:  
 `const heap = new MinHeap();`
 
 
