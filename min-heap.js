@@ -1,14 +1,18 @@
 class MinHeap {
-    constructor() {
+    constructor(array = null) {
         this.heap = [];
         this.size = 0;
         this.map = new Map();
+
+        if (array) {
+            this.buildHeap(array);
+        }
     }
 
     addWithPriority(element, priority) {
         this.heap.push({ item: element, priority });
         this.size++;
-        this.map.set(element, this.size-1);
+        this.map.set(element, this.size - 1);
         this.#heapifyUp();
     }
 
@@ -16,7 +20,7 @@ class MinHeap {
         if (this.isEmpty()) {
             return null;
         }
-        
+
         let index = this.map.get(element);
 
         if (index === undefined) {
@@ -53,10 +57,31 @@ class MinHeap {
     }
 
     peek = () => this.isEmpty() ? null : this.heap[0].item;
-    
+
     has = (element) => this.map.has(element);
 
+    size = () => this.size;
+
     isEmpty = () => this.size === 0;
+
+    toArray = () => this.heap.map(({ item }) => item);
+
+    isMinHeap() {
+        for (let i = 1; i < this.size; i++) {
+            const parentIndex = this.#getParent(i);
+            if (this.heap[parentIndex].priority > this.heap[i].priority) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    buildHeap(array) {
+        this.clear();
+        for (let element of array) {
+            this.addWithPriority(element, element);
+        }
+    }
 
     #getParent = (i) => (i - 1) >> 1;
 
@@ -88,11 +113,11 @@ class MinHeap {
             if (leftChildIndex < this.heap.length && this.heap[leftChildIndex].priority < this.heap[minIndex].priority) {
                 minIndex = leftChildIndex;
             }
-    
+
             if (rightChildIndex < this.heap.length && this.heap[rightChildIndex].priority < this.heap[minIndex].priority) {
                 minIndex = rightChildIndex;
             }
-    
+
             if (minIndex !== currentIndex) {
                 this.swap(currentIndex, minIndex);
                 this.map.set(this.heap[currentIndex].item, currentIndex);

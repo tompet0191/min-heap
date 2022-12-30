@@ -82,6 +82,8 @@ describe('MinHeap', () => {
                 heap.addWithPriority(item, priority);
             }
 
+            expect(heap.isMinHeap()).toBe(true);
+
             for (const { item } of expected) {
                 expect(heap.extractMin()).toBe(item)
             }
@@ -137,5 +139,126 @@ describe('MinHeap', () => {
             expect(heap.size).toBe(0);
             expect(heap.map.size).toBe(0);
         });
+    });
+
+    describe('isMinHeap ()', () => {
+        it('works correctly with an empty heap', () => {
+            expect(heap.isMinHeap()).toBe(true);
+        });
+
+        it('works correctly with a heap of size 1', () => {
+            heap.addWithPriority(1, 10);
+            expect(heap.isMinHeap()).toBe(true);
+        });
+
+        it('works correctly with a heap of size 2 where the heap property is satisfied', () => {
+            heap.addWithPriority(1, 10);
+            heap.addWithPriority(2, 5);
+            expect(heap.isMinHeap()).toBe(true);
+        });
+
+        it('works correctly with a heap of size 2 where the heap property is not satisfied', () => {
+            heap.addWithPriority(1, 10);
+            heap.addWithPriority(2, 5);
+            heap.heap[0].priority = 20;
+            expect(heap.isMinHeap()).toBe(false);
+        });
+
+        it('works correctly with a heap of size 3 where the heap property is satisfied', () => {
+            heap.addWithPriority(1, 10);
+            heap.addWithPriority(2, 5);
+            heap.heap[0].priority = 20;
+            heap.addWithPriority(4, 1);
+            expect(heap.isMinHeap()).toBe(true);
+        });
+
+        it('works correctly with a heap of size 3 where the heap property is not satisfied', () => {
+            heap.addWithPriority(1, 10);
+            heap.addWithPriority(2, 5);
+            heap.heap[0].priority = 20;
+            heap.addWithPriority(5, 20);
+            heap.heap[0].priority = 25;
+            expect(heap.isMinHeap()).toBe(false);
+        });
+
+        it('works correctly with a heap of size 4 where the heap property is satisfied', () => {
+            heap.addWithPriority(1, 10);
+            heap.addWithPriority(2, 5);
+            heap.addWithPriority(5, 20);
+            heap.addWithPriority(6, 10);
+            expect(heap.isMinHeap()).toBe(true);
+        });
+
+        test('isMinHeap function works correctly with a heap of size 4 where the heap property is not satisfied', () => {
+            heap.addWithPriority(1, 10);
+            heap.addWithPriority(7, 30);
+            heap.addWithPriority(6, 10);
+            heap.addWithPriority(2, 5);
+            heap.heap[1].priority = 35;
+            expect(heap.isMinHeap()).toBe(false);
+        });
+    });
+
+    describe('buildHeap()', () => {
+        it('should build a heap with an even number of elements', () => {
+            heap.buildHeap([5, 3, 1, 4, 2, 6]);
+            expect(heap.size).toBe(6);
+            expect(heap.map.size).toBe(6);
+            expect(heap.isMinHeap()).toBe(true);
+        });
+
+        it('should build a heap with an odd number of elements', () => {
+            heap.buildHeap([5, 3, 8]);
+            expect(heap.size).toBe(3);
+            expect(heap.map.size).toBe(3);
+            expect(heap.isMinHeap()).toBe(true);
+        });
+
+        it('should build a heap with already sorted elements', () => {
+            heap.buildHeap([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+            expect(heap.size).toBe(9);
+            expect(heap.map.size).toBe(9);
+            expect(heap.isMinHeap()).toBe(true);
+        });
+
+        it('should build a heap with reversed sorted elements', () => {
+            heap.buildHeap([9, 8, 7, 6, 5, 4, 3, 2, 1]);
+            expect(heap.size).toBe(9);
+            expect(heap.map.size).toBe(9);
+            expect(heap.isMinHeap()).toBe(true);
+        });
+
+        it('should work when called from constructor as well', () => {
+            let initialized = new MinHeap([9, 8, 7, 6, 5, 4, 3, 2, 1]);
+            expect(initialized.size).toBe(9);
+            expect(initialized.map.size).toBe(9);
+            expect(initialized.isMinHeap()).toBe(true);
+        });
+    });
+
+    describe('toArray()', () => {
+        it('should return an empty array for an empty heap', () => {
+            expect(heap.toArray()).toEqual([]);
+        });
+
+        it('should return an array with a single element for a heap with a single element', () => {
+            heap.addWithPriority('A', 1);
+            expect(heap.toArray()).toEqual(['A']);
+        });
+
+        it('should return an array with a single element for a heap with a single element', () => {
+            heap.addWithPriority('A', 1);
+            expect(heap.toArray()).toEqual(['A']);
+        });
+
+        it('should return an array in the correct order after extracting elements from the heap', () => {
+            heap.addWithPriority('C', 3);
+            heap.addWithPriority('A', 1);
+            heap.addWithPriority('B', 2);
+            heap.extractMin();
+            expect(heap.toArray()).toEqual(['B', 'C']);
+        });
+
+
     });
 });
