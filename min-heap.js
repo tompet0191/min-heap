@@ -50,6 +50,15 @@ class MinHeap {
         this.map.clear();
     }
 
+    find = (element) => {
+        const index = this.map.get(element);
+        if (index === undefined) {
+            return null;
+        }
+
+        return  this.heap[index];
+    }
+
     peek = () => this.isEmpty() ? null : this.heap[0].item;
 
     has = (element) => this.map.has(element);
@@ -60,11 +69,7 @@ class MinHeap {
 
     toArray = () => this.heap.map(({ item }) => item);
 
-    getPriority = (element) => {
-        const index = this.map.get(element) 
-        
-        return index !== undefined ? this.heap[index].priority : null;
-    }
+    getPriority = (element) => this.find(element) ? this.find(element).priority : null;
 
     isMinHeap() {
         for (let i = 1; i < this.size; i++) {

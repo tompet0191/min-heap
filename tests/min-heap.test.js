@@ -287,5 +287,28 @@ describe('MinHeap', () => {
             expect(heap.getPriority('A')).toBe(1);
         });
     });
+
+    describe('find()', () => {
+        it('should return the element and it\'s priority in the heap', () => {
+            heap.addWithPriority('A', 1);
+            expect(heap.find('A')).toEqual({ item: 'A', priority: 1});
+        });
+    
+        it('should return null if the element is not in the heap', () => {
+            heap.addWithPriority('A', 1);
+            expect(heap.find('B')).toBe(null);
+        });
+    
+        it('should return null if the heap is empty', () => {
+            expect(heap.find('A')).toBe(null);
+        });
+    
+        it('should return the element in the heap with multiple elements', () => {
+            heap.addWithPriority('A', 1);
+            heap.addWithPriority('B', 2);
+            heap.addWithPriority('C', 3);
+            expect(heap.find('B')).toEqual({ item: 'B', priority: 2});
+        });
+    });
     
 });
