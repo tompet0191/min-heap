@@ -17,22 +17,16 @@ class MinHeap {
     }
 
     decreasePriority(element, newPriority) {
-        if (this.isEmpty()) {
+        const current = this.find(element);
+        if (!current) {
             return null;
         }
-
-        let index = this.map.get(element);
-
-        if (index === undefined) {
-            return null;
+        if (newPriority > current.priority) {
+            throw Error(`New priority ${newPriority} is greater than the current priority ${current.priority}`)
         }
 
-        if (newPriority > this.heap[index].priority) {
-            throw Error(`New priority ${newPriority} is greater than the current priority ${this.heap[index].priority}`)
-        }
-
-        this.heap[index].priority = newPriority
-        this.#heapifyUp(index);
+        current.priority = newPriority;
+        this.#heapifyUp(this.map.get(element));
     }
 
     extractMin() {
