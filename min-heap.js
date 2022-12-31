@@ -95,47 +95,55 @@ class MinHeap {
 
     #getRightChild = (i) => (i << 1) + 2;
 
-    #heapifyUp(index) {
-        let currentIndex = index || this.size - 1;
-        while (currentIndex > 0) {
-            const parentIndex = this.#getParent(currentIndex);
-            if (this.heap[currentIndex].priority < this.heap[parentIndex].priority) {
-                this.swap(currentIndex, parentIndex);
-                this.map.set(this.heap[currentIndex].item, currentIndex);
-                this.map.set(this.heap[parentIndex].item, parentIndex);
-                currentIndex = parentIndex;
+    #heapifyUp(index = this.size - 1) {
+        while (index > 0) {
+            const parentIndex = this.#getParent(index);
+            if (this.heap[index].priority < this.heap[parentIndex].priority) {
+                this.#swapAndUpdateMap(index, parentIndex);
+                index = parentIndex;
             } else {
                 break;
             }
         }
     }
 
-    #heapifyDown(index) {
-        let currentIndex = index || 0;
-        while (currentIndex < this.size) {
-            const leftChildIndex = this.#getLeftChild(currentIndex);
-            const rightChildIndex = this.#getRightChild(currentIndex);
-            let minIndex = currentIndex;
-            if (leftChildIndex < this.heap.length && this.heap[leftChildIndex].priority < this.heap[minIndex].priority) {
-                minIndex = leftChildIndex;
-            }
+    #heapifyDown(index = 0) {
+        while (index < this.size) {
+            const minIndex = this.#getIndexOfChildWithMinimumPriority(index);
 
-            if (rightChildIndex < this.heap.length && this.heap[rightChildIndex].priority < this.heap[minIndex].priority) {
-                minIndex = rightChildIndex;
-            }
-
-            if (minIndex !== currentIndex) {
-                this.swap(currentIndex, minIndex);
-                this.map.set(this.heap[currentIndex].item, currentIndex);
-                this.map.set(this.heap[minIndex].item, minIndex);
-                currentIndex = minIndex;
+            if (minIndex !== index) {
+                this.#swapAndUpdateMap(index, minIndex);
+                index = minIndex;
             } else {
                 break;
             }
         }
     }
 
-    swap(i, j) {
+    #getIndexOfChildWithMinimumPriority(currentIndex) {
+        const leftChildIndex = this.#getLeftChild(currentIndex);
+        const rightChildIndex = this.#getRightChild(currentIndex);
+        let minIndex = currentIndex;
+
+        if (leftChildIndex < this.heap.length && this.heap[leftChildIndex].priority < this.heap[minIndex].priority) {
+            minIndex = leftChildIndex;
+        }
+
+        if (rightChildIndex < this.heap.length && this.heap[rightChildIndex].priority < this.heap[minIndex].priority) {
+            minIndex = rightChildIndex;
+        }
+
+        return minIndex;
+    }
+
+    #swapAndUpdateMap(i, j) {
+        this.#swap(i, j);
+        this.map.set(this.heap[i].item, i);
+        this.map.set(this.heap[j].item, j);
+      }
+      
+
+    #swap(i, j) {
         const temp = this.heap[i];
         this.heap[i] = this.heap[j];
         this.heap[j] = temp;
