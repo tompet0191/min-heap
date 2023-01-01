@@ -33,9 +33,8 @@ class MinHeap {
         if (this.isEmpty()) {
             return null;
         }
-        const min = this.heap[0];
-        this.heap[0] = this.heap[this.size - 1];
-        this.heap.pop();
+        this.#swap(0, this.size - 1);
+        const min = this.heap.pop();
         this.#heapifyDown();
 
         this.size--;
@@ -136,17 +135,16 @@ class MinHeap {
         return minIndex;
     }
 
-    #swapAndUpdateMap(i, j) {
-        this.#swap(i, j);
-        this.map.set(this.heap[i].item, i);
-        this.map.set(this.heap[j].item, j);
-      }
-      
-
     #swap(i, j) {
         const temp = this.heap[i];
         this.heap[i] = this.heap[j];
         this.heap[j] = temp;
+        this.#updateMap(i, j);
+    }
+
+    #updateMap(i, j) {
+        this.map.set(this.heap[i].item, i);
+        this.map.set(this.heap[j].item, j);
     }
 }
 
