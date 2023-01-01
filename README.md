@@ -49,5 +49,5 @@ Time complexity: O(n)
 
 #### `buildHeap(array, getPriority = null)` 
 Constructs a new heap from the given array by adding each element to the heap with its value as the priority.  
-Alternatively, a priority function may be sent in instead.
+Alternatively, a priority function may be sent in instead.  
 Time complexity: O(n log n)
