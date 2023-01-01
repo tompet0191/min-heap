@@ -238,7 +238,7 @@ describe('MinHeap', () => {
         it('should work correctly when received a priority function', () => {
             let array = [10, 20, 30, 40]
             heap.buildHeap(array, (element) => element * 2);
-            expect(array.map(x => heap.getPriority(x))).toEqual([20, 40, 60, 80]);
+            expect(array.map(x => heap.find(x).priority)).toEqual([20, 40, 60, 80]);
         });
     });
 
@@ -263,28 +263,6 @@ describe('MinHeap', () => {
             heap.addWithPriority('B', 2);
             heap.extractMin();
             expect(heap.toArray()).toEqual(['B', 'C']);
-        });
-    });
-
-    describe('getPriority()', () => {
-        it('should return the correct priority for an element in the heap', () => {
-            heap.addWithPriority('A', 1);
-            expect(heap.getPriority('A')).toBe(1);
-        });
-
-        it('should return null if the element is not in the heap', () => {
-            heap.addWithPriority('A', 1);
-            expect(heap.getPriority('B')).toBe(null);
-        });
-
-        it('should return null if the heap is empty', () => {
-            expect(heap.getPriority('A')).toBe(null);
-        });
-
-        it('should return the correct priority for an element in the heap with multiple elements', () => {
-            heap.addWithPriority('A', 1);
-            heap.addWithPriority('B', 2);
-            expect(heap.getPriority('A')).toBe(1);
         });
     });
 

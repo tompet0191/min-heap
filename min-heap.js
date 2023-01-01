@@ -68,8 +68,6 @@ class MinHeap {
 
     toArray = () => this.heap.map(({ item }) => item);
 
-    getPriority = (element) => this.find(element) ? this.find(element).priority : null;
-
     isMinHeap() {
         for (let i = 1; i < this.size; i++) {
             const parent = this.#getParent(i);
