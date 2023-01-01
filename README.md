@@ -1,5 +1,5 @@
 # min-heap
-A lightweight JavaScript min heap implementation
+A min priority queue implemented as a min heap in JavaScript
 
 ## Constructor
 This creates a new instance of the MinHeap class with an empty heap:  
