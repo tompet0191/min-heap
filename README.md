@@ -27,12 +27,12 @@ Time complexity: O(log n)
 Returns the minimum element from the heap without removing it.  
 Time complexity: O(1)
 
-#### `has(element)`
-Returns `true` if the given element is in the heap, and `false` otherwise.  
+#### `find(element) `
+Returns the element and its priority if it exists in the heap, otherwise `null`.  
 Time complexity: O(1)
 
-#### `getPriority(element) `
-Returns the priority of an element if it exists in the heap, otherwise `null`.  
+#### `has(element)`
+Returns `true` if the given element is in the heap, and `false` otherwise.  
 Time complexity: O(1)
 
 #### `isEmpty()`
