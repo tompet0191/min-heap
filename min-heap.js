@@ -43,6 +43,14 @@ class MinHeap {
         return min.item;
     }
 
+    delete(element) {
+        if (!this.find(element)) {
+            return null;
+        }
+        this.decreasePriority(element, -Infinity);
+        return this.extractMin();        
+    }
+
     clear() {
         this.heap = [];
         this.size = 0;

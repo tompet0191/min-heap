@@ -288,4 +288,27 @@ describe('MinHeap', () => {
             expect(heap.find('B')).toEqual({ item: 'B', priority: 2 });
         });
     });
+
+    describe('delete()', () => {
+        beforeEach(() => {
+            heap.addWithPriority('a', 2);
+            heap.addWithPriority('b', 1);
+            heap.addWithPriority('c', 3);
+        });
+
+        it('removes an element from the heap and returns it', () => {
+            expect(heap.delete('b')).toEqual('b');
+            expect(heap.toArray()).toEqual(['a', 'c']);
+        });
+
+        it('returns null if element is not found', () => {
+            expect(heap.delete('d')).toBeNull();
+        });
+        
+        it('maintains the min heap property', () => {
+            heap.delete('b');
+            expect(heap.isMinHeap()).toBeTruthy();
+        });
+    });
+    
 });
