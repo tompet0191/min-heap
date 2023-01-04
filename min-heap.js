@@ -10,6 +10,10 @@ class MinHeap {
     }
 
     addWithPriority(element, priority) {
+        if (isNaN(priority)) {
+            throw Error(`Priority must be a number: ${priority}`);
+        }
+        
         this.heap.push({ item: element, priority });
         this.size++;
         this.map.set(element, this.size - 1);
@@ -33,6 +37,7 @@ class MinHeap {
         if (this.isEmpty()) {
             return null;
         }
+
         this.#swap(0, this.size - 1);
         const min = this.heap.pop();
         this.#heapifyDown();

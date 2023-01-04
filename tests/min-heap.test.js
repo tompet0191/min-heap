@@ -14,6 +14,11 @@ describe('MinHeap', () => {
             expect(heap.size).toBe(1);
             expect(heap.map.size).toBe(1);
         });
+
+        it('should throw an error if called with non-number as priority', () => {
+            let priority = 'a'
+            expect(() => heap.addWithPriority('A', priority)).toThrowError(`Priority must be a number: ${priority}`);
+        });
     });
 
     describe('decreasePriority()', () => {
