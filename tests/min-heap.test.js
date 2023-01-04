@@ -245,6 +245,12 @@ describe('MinHeap', () => {
             heap.buildHeap(array, (element) => element * 2);
             expect(array.map(x => heap.find(x).priority)).toEqual([20, 40, 60, 80]);
         });
+
+        it('should throw an error if not given an array', () => {
+            let array = 10;
+            expect(() => heap.buildHeap(array, 1)).toThrowError(`Expected an array: ${array}`);
+            expect(() => heap.buildHeap(null, 1)).toThrowError(`Expected an array: null`);
+        });
     });
 
     describe('toArray()', () => {

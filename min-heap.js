@@ -13,7 +13,7 @@ class MinHeap {
         if (isNaN(priority)) {
             throw Error(`Priority must be a number: ${priority}`);
         }
-        
+
         this.heap.push({ item: element, priority });
         this.size++;
         this.map.set(element, this.size - 1);
@@ -92,6 +92,10 @@ class MinHeap {
     }
 
     buildHeap(array, getPriority = null) {
+        if (!Array.isArray(array)) {
+            throw Error(`Expected an array: ${array}`);
+        }
+
         this.clear();
         for (let element of array) {
             const priority = getPriority ? getPriority(element) : element;
