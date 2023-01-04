@@ -23,6 +23,10 @@ Time complexity: O(log n)
 Removes and returns the minimum element from the heap. If the heap is empty, returns `null`.  
 Time complexity: O(log n)
 
+#### `delete(element)`
+Removes the given from the heap. If the item does not exist, returns `null`.  
+Time complexity: O(log n)
+
 #### `peek()`
 Returns the minimum element from the heap without removing it.  
 Time complexity: O(1)
