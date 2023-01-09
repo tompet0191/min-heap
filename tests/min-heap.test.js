@@ -79,7 +79,7 @@ describe('MinHeap', () => {
 
             let expected = []
             for (let i = 0; i < 10000; i++) {
-                expected.push({ i, priority: nextPriority++ });
+                expected.push({ item: i, priority: nextPriority++ });
             }
             expected.sort((a, b) => Math.random() - 0.5);
 
@@ -89,6 +89,7 @@ describe('MinHeap', () => {
 
             expect(heap.isMinHeap()).toBe(true);
 
+            expected.sort((a, b) => a.priority - b.priority);
             for (const { item } of expected) {
                 expect(heap.extractMin()).toBe(item)
             }
